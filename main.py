@@ -38,7 +38,7 @@ def zipToTxt(folder):
     root = ET.fromstring(prettyXML)
 
     namespace = {'w': "http://schemas.openxmlformats.org/wordprocessingml/2006/main"}
-    text = root.find('.//w:t', namespace) #All text is stored in <w:t*>
+    text = root.findall('.//w:t', namespace) #All text is stored in <w:t*>
     g = open(folder + ".txt", 'w')
 
     print("hi")
