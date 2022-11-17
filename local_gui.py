@@ -16,7 +16,8 @@ root.resizable(False, False)
 
 label = Label (
     root,
-    text="Please select the file you would like to convert"
+    text="Please select the file you would like to convert",
+    font=("ARIAL", 16)
 )
 
 open_button = Button (
@@ -42,8 +43,8 @@ convert = Button (
 
 
 
-label.pack()
-open_button.pack(expand=True)
-file_entry.pack()
+label.place(relx=.1, rely=.1)
+open_button.place(relx=.325, rely=.4)
+file_entry.place(relx=.475, rely=.41)
 
 root.mainloop()

@@ -2,6 +2,7 @@ import os
 import zipfile
 import xml.etree.ElementTree as ET
 from bs4 import BeautifulSoup
+from file_handler import handler
 
 #Converts word document to text
 #Taken from https://python.plainenglish.io/how-to-read-docx-files-with-python-b2ec17bcb277
@@ -10,11 +11,11 @@ class converter():
     def run(self, file):
         filename = file[:file.rfind(".")]
         extension = file[file.rfind(".")+1:]
-        #Checks to make sure correct file path
+        #Checks to make sure correct file path. Should never occur theoretically.
         if (not ((extension == "docx" or extension == "doc") and os.path.isfile(file))):
             print("Invalid file. Please choose an existing 'doc' or 'docx' file.")
-            main(input("file: "))
-            exit()
+            handler.invalidfile()
+
 
         self.docToTxt(self, filename)
         print("Done.")
@@ -36,6 +37,7 @@ class converter():
         for t in text: #XML is one line, but just to be safe..
             g.write(t.text)
         g.close()
+        handler.finished()
 
     #Checks if output file exists
     #Asks if overwrite
@@ -43,15 +45,7 @@ class converter():
     def overwrite(self,folder):
         newfile =  folder + ".txt"
         if(os.path.isfile(newfile)):
-            overwrite = False
-            while(True):
-                inp = input("There already is a file with the same name in this location. Do you want to overrwrite (y/n)? ").lower()
-                if(inp == "no" or inp == "n"):
-                    break
-                if(inp == "yes" or inp == "y"):
-                    overwrite = True
-                    break
-                print("Please answer yes or no")
+            overwrite = handler.overwrite()
 
             #Uses windows naming convention of (n)
             if(not overwrite):
