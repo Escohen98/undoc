@@ -43,8 +43,9 @@ class handler():
 
         return ow
 
-    def finished():
-        finish = showinfo(
+    def finished(file):
+        finish = askyesno(
         'Success!',
-        "\nFile successfully converted."
+        f"\nFile successfully converted. Do you want to open {file}?"
         )
+        return finish

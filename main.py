@@ -1,5 +1,6 @@
 import os
 import zipfile
+import subprocess
 import xml.etree.ElementTree as ET
 from bs4 import BeautifulSoup
 from file_handler import handler
@@ -37,7 +38,10 @@ class converter():
         for t in text: #XML is one line, but just to be safe..
             g.write(t.text)
         g.close()
-        handler.finished()
+        file = folder + ".txt"
+        if (handler.finished(file)):
+                    p = subprocess.Popen(["notepad.exe", file])
+
 
     #Checks if output file exists
     #Asks if overwrite
@@ -54,5 +58,3 @@ class converter():
                     x+=1
                     newfile = f"{folder}({x}).txt"
         return newfile
-
-#run(input("file: "))
